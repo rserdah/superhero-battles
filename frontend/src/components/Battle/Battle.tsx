@@ -4,6 +4,7 @@ import { tryPromise, resToHero } from '../util/util';
 import Team from './Team';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button, Alert, Card, Form, Container, Row, Col } from 'react-bootstrap';
 
 const SALT_ROUNDS = 10;
 const SECRET_KEY = 'your-secret-key';
@@ -259,17 +260,17 @@ function Battle() {
     return (
         <div style={{margin: '0px 10px 0px 10px', transformOrigin: 'top left', transform: 'scale(var(--battle-view-scale))'}}>
             {/* <p>Battle state: {battleFinished === true ? "done" : (battleFinished === false ? "running" : "unknown")}</p> */}
-            <p>{`Signed in as ${username ? username : 'guest'}`}</p>
+            <Alert>{`Signed in as ${username ? username : 'guest'}`}</Alert>
 
             <>
                 { requestedBattle && requestedBattle.challenger ? 
-                <p>{`${requestedBattle.challenger} challenges ${requestedBattle.opponent} to battle!`}</p> :
-                <p>No battle requested</p>}
+                <Alert variant='success'>{`${requestedBattle.challenger} challenges ${requestedBattle.opponent} to battle!`}</Alert> :
+                <Alert variant='warning'>No battle requested</Alert>}
             </>
         
         {
             requestedBattle && requestedBattle.challenger ?
-            <button hidden={battle != null } onClick={startBattle}>Start battle!</button>
+            <Button hidden={battle != null } onClick={startBattle}>Start battle!</Button>
             :
             username ? 
             <Link className="nav-link" to={'/usersearch'} style={{ display: 'inline-block' }}>
@@ -277,7 +278,7 @@ function Battle() {
             </Link>
             :
             <Link className="nav-link" to={'/'} style={{ display: 'inline-block' }}>
-                <button>Log in to battle!</button>
+                <Button>Log in to battle!</Button>
             </Link>
         }
         {/* <h1>{step}</h1> */}

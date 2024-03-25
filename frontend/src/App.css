@@ -97,7 +97,9 @@ body {
 
 .hero-card-image {
   border-radius: 10px;
-  box-shadow: 15px 15px 10px 5px rgba(197, 197, 197, 0.93);
+  /* box-shadow: 15px 15px 10px 5px rgba(197, 197, 197, 0.93); */
+  box-shadow: 15px 15px 10px 5px color-mix(in srgb, var(--bs-body-bg) 25%, black);
+  /* box-shadow: 15px 15px 10px 5px var(--bs-body-bg); */
   border: 8px solid rgb(181, 140, 78);
   padding: 0;
   
@@ -175,5 +177,5 @@ td, th {
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: var(--bs-secondary-bg);
 }

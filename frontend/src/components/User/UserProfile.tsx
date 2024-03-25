@@ -6,6 +6,7 @@ import { requestedBattleActions } from '../Redux/slices/requestedBattleSlice';
 import HeroForm from '../CustomHeroPage/HeroForm';
 import { URL } from '../../App';
 import FollowButton from '../FollowButton/FollowButton';
+import { Alert, Button, Col, Container, Row } from 'react-bootstrap';
 
 function UserProfile() {
 
@@ -128,7 +129,7 @@ function UserProfile() {
                                     </select>
                                 </label>
                                 <br />
-                                <button type="submit">Submit</button>
+                                <Button type="submit">Submit</Button>
                             </form>
                             : <div></div>
                         }
@@ -152,7 +153,7 @@ function UserProfile() {
                                 <>
                                     <Link className="nav-link" to={'/battle'} onClick={request1v1} style={{ display: 'inline-block' }}
                                     title='Battle using your custom hero versus theirs'>
-                                        <button>1v1 me</button>
+                                        <Button>1v1 me</Button>
                                     </Link>
 
                                     <br />
@@ -160,20 +161,27 @@ function UserProfile() {
 
                                     <Link className="nav-link" to={'/battle'} onClick={request3v3} style={{ display: 'inline-block' }}
                                     title='Battle using your custom hero and two random allies'>
-                                        <button>3v3 me</button>
+                                        <Button>3v3 me</Button>
                                     </Link>
                                 </>
                             ) :
                             <Link className="nav-link" to={'/'} style={{ display: 'inline-block' }}>
-                                <button>Log in to battle {username}!</button>
+                                <Button>Log in to battle {username}!</Button>
                             </Link>
                             }
                         </div>
                     </>
                     : 
-                    <Link className="nav-link" to={'/'} style={{ display: 'inline-block' }}>
-                        <button>Log in to view user accounts</button>
-                    </Link>
+                    // <Link className="nav-link" to={'/'} style={{ display: 'inline-block' }}>
+                    //     <Button>Log in to view user accounts</Button>
+                    // </Link>
+                    <Container fluid>
+                    <Row>
+                        <Col md={4}>
+                        <Alert variant='danger'>User not found</Alert>
+                        </Col>
+                    </Row>
+                    </Container>
             }
         </div>
     )
@@ -187,7 +195,7 @@ function CustomHeroLink({username=""}) {
             // Display inline block allows React Link to not be 100%
             // (https://stackoverflow.com/a/72326049)
             <Link className="nav-link" to={path} style={{display: 'inline-block'}}>
-                <button>See my Custom Hero!</button>
+                <Button>See my Custom Hero!</Button>
             </Link>
             // <HeroForm />
     );

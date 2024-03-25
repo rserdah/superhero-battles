@@ -10,13 +10,13 @@ function Home() {
   return (
     <div>
       <RegisterContainer/>
-      <h1>Welcome To SuperHero Battles</h1>
+      {/* <h1>Welcome To SuperHero Battles</h1>
       {
         username ? 
         <h2>{`Signed in as ${username}`}</h2>
         :
         <h2>Please register or login</h2>
-      }
+      } */}
     </div>
   )
 }

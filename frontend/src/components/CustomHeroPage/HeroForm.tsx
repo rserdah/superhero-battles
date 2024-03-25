@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import {URL} from '../../App'
+import { Badge } from 'react-bootstrap';
 
 
 export default function HeroForm() { //default values for hero
@@ -132,7 +133,7 @@ export default function HeroForm() { //default values for hero
     else if(formData.heroName) {
         return (
             <div>
-                <h1 id="heroName"> Name: {formData.heroName} </h1>
+                <h1 id="heroName">{formData.heroName} <Badge>Custom Hero</Badge> <Badge bg={formData.alignment == 'good'?'success':formData.alignment == 'bad'?'danger':'secondary'}>{formData.alignment.charAt(0).toUpperCase() + formData.alignment.slice(1)}</Badge></h1>
                 <HeroAvatar id={formData.avatar}/>
                 <UserLink username={username}/>
                 <p id="alignment"> Moral alignment: {formData.alignment} </p>
