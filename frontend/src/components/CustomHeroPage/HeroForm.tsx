@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import {URL} from '../../App'
-import { Badge } from 'react-bootstrap';
+import { Badge, Button, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap';
 
 
 export default function HeroForm() { //default values for hero
@@ -87,47 +87,120 @@ export default function HeroForm() { //default values for hero
 
    if( token && user === username ) { //how do we tell if we're logged in?
         return (
-            <form onSubmit={handleSubmit}>
+            <>
+                <Container fluid>
+                <Form onSubmit={handleSubmit}>
+                        <Row>
+                            <HeroAvatar id={formData.avatar}/>
+                        </Row>
+                        
+                        <Row className="mb-3 mt-3">
+                            <Col md={1}>
+                                <FloatingLabel controlId="floatingInputAvatarID" label="Avatar ID">
+                                    <Form.Control type="number" min="0" max="6" id="avatar" name="avatar" value={formData.avatar} onChange={handleChange} />
+                                </FloatingLabel>
+                            </Col>
 
-                <HeroAvatar id={formData.avatar}/>
-                
-                <label htmlFor="avatar">Avatar ID:</label>
-                <input type="number" min="0" max="6" id="avatar" name="avatar" value={formData.avatar} onChange={handleChange}/>
-                <br />
+                            <Col md={1}>
+                                <FloatingLabel controlId="floatingInput" label="Name">
+                                    <Form.Control type="text" id="heroName" name="heroName" placeholder="Your hero's name" value={formData.heroName} onChange={handleChange} />
+                                </FloatingLabel>
+                            </Col>
 
-                {/* <UserLink username={username}/>
-                <br />
-                <br /> */}
+                            <Col md={1}>
+                                <FloatingLabel controlId="floatingLabelAlignment" label="Alignment">
+                                    <Form.Select id="alignment" name="alignment" value={formData.alignment} onChange={handleChange}>
+                                        <option value="neutral">Neutral</option>
+                                        <option value="good">Good</option>
+                                        <option value="bad">Bad</option>
+                                    </Form.Select>
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
 
-                <label htmlFor="heroName">Name:</label>
-                <br />
-                <input type="text" id="heroName" name="heroName" placeholder="Your hero's name" value={formData.heroName} onChange={handleChange}/>
+                        <Row>
+                            <Col md={3}>
+                                <FloatingLabel controlId="floatingTextAreaDescription" label="Description">
+                                    <Form.Control as="textarea" id="description" name="description" placeholder="Description of your hero" style={{ height: '100px' }} value={formData.description} onChange={handleChange}/>
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
 
-                <br />
-                <label htmlFor="alignment">
-                    Alignment:
+                        <Row className='mt-3'>
+                            <Col md={3}>
+                                <FloatingLabel controlId="floatingTextAreaBackstory" label="Backstory">
+                                    <Form.Control as="textarea" id="backstory" name="backstory" placeholder="Your hero's backstory" style={{ height: '100px' }} value={formData.backstory} onChange={handleChange}/>
+                                </FloatingLabel>
+                            </Col>
+                        </Row>
+
+                        <Row className='mt-3'>
+                            <Col md={1}>
+                                <FloatingLabel controlId="floatingInputAvatarID" label="Avatar ID">
+                                    <Form.Control disabled readOnly type="number" id="stats" name="stats" min="1" max="731" value={formData.stats} onChange={handleChange}/>
+                                </FloatingLabel>
+
+                            </Col>
+                            <Col>
+                                <Button size="lg" onClick={async () => { axios.get(`${URL}/battleground/randomhero`).then((x: any) => x.data.id).then(x => setFormData((prevFormData) => ({ ...prevFormData, stats: x }))) } }>🎲</Button>
+                            </Col>
+                        </Row>
+
+                        <Row className='mt-3'>
+                            <Col md={1}>
+                                <Button type="submit">Submit</Button>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Container>
+
+
+{/* ************************************************************************************************************************************* */}
+
+
+
+                {/* <form onSubmit={handleSubmit}>
+                    
+                    <label htmlFor="avatar">Avatar ID:</label>
+                    <input type="number" min="0" max="6" id="avatar" name="avatar" value={formData.avatar} onChange={handleChange}/>
                     <br />
-                    <input type="text" id="alignment" name="alignment" placeholder="good, bad, or neutral" value={formData.alignment} onChange={handleChange}/>
-                </label>
-                <br />
-                <br />
-                <label htmlFor="description">Description:</label>
-                <br />
-                <textarea id="description" name="description" placeholder="Description of your hero" value={formData.description} onChange={handleChange}/>
-                <br />
-                <br />
 
-                <label htmlFor="backstory">Backstory:</label>
-                <br />
-                <textarea id="backstory" name="backstory" placeholder="Your hero's backstory" value={formData.backstory} onChange={handleChange}/>
-                <br />
-                <br />
-                <label htmlFor="stats">Stats ID:</label>
-                <input type="number" min="1" max="731" id="stats" name="stats" value={formData.stats} onChange={handleChange}/>
-                <br />
-                <br />
-                <button type="submit">Submit</button>
-            </form>
+                    {
+                        //<UserLink username={username}/>
+                        //<br />
+                        //<br />
+                    }
+
+                    <label htmlFor="heroName">Name:</label>
+                    <br />
+                    <input type="text" id="heroName" name="heroName" placeholder="Your hero's name" value={formData.heroName} onChange={handleChange}/>
+
+                    <br />
+                    <label htmlFor="alignment">
+                        Alignment:
+                        <br />
+                        <input type="text" id="alignment" name="alignment" placeholder="good, bad, or neutral" value={formData.alignment} onChange={handleChange}/>
+                    </label>
+                    <br />
+                    <br />
+                    <label htmlFor="description">Description:</label>
+                    <br />
+                    <textarea id="description" name="description" placeholder="Description of your hero" value={formData.description} onChange={handleChange}/>
+                    <br />
+                    <br />
+
+                    <label htmlFor="backstory">Backstory:</label>
+                    <br />
+                    <textarea id="backstory" name="backstory" placeholder="Your hero's backstory" value={formData.backstory} onChange={handleChange}/>
+                    <br />
+                    <br />
+                    <label htmlFor="stats">Stats ID:</label>
+                    <input type="number" min="1" max="731" id="stats" name="stats" value={formData.stats} onChange={handleChange}/>
+                    <br />
+                    <br />
+                    <button type="submit">Submit</button>
+                </form> */}
+            </>
         );
     }
     else if(formData.heroName) {

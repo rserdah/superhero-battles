@@ -97,6 +97,8 @@ body {
 
 .hero-card-image {
   border-radius: 10px;
+  /* Gives transparent images (usually from custom hero avatars) a background */
+  background-color: darkgray;
   /* box-shadow: 15px 15px 10px 5px rgba(197, 197, 197, 0.93); */
   box-shadow: 15px 15px 10px 5px color-mix(in srgb, var(--bs-body-bg) 25%, black);
   /* box-shadow: 15px 15px 10px 5px var(--bs-body-bg); */

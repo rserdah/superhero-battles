@@ -32,7 +32,7 @@ function UserProfile() {
                 return null;
             }
 
-            let response = await axios.get(`http://3.137.160.227:4000/users/${username}`,
+            let response = await axios.get(`${URL}/users/${username}`,
                 {
                     headers: {
                         "Authorization": `Bearer ${token}` //puts token in the headers

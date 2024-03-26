@@ -4,9 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../Redux/slices/userSlice';
 import { Button, Alert, Card, Form, Container, Row, Col } from 'react-bootstrap';
-
-
-const URL = `http://3.137.160.227:4000`;
+import { URL } from '../../App';
 
 function RegisterContainer() {
     const [actionMessage, setActionMessage] = useState('');

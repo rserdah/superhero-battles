@@ -5,11 +5,10 @@ import Team from './Team';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Alert, Card, Form, Container, Row, Col } from 'react-bootstrap';
+import { URL } from '../../App';
 
 const SALT_ROUNDS = 10;
 const SECRET_KEY = 'your-secret-key';
-
-const URL = `http://3.137.160.227:4000`;
 
 function Battle() {
     // Since battle holds a lot of data, might need to separate it in different hooks (or else can cause flickering when only want one thing to change)
@@ -260,13 +259,21 @@ function Battle() {
     return (
         <div style={{margin: '0px 10px 0px 10px', transformOrigin: 'top left', transform: 'scale(var(--battle-view-scale))'}}>
             {/* <p>Battle state: {battleFinished === true ? "done" : (battleFinished === false ? "running" : "unknown")}</p> */}
-            <Alert>{`Signed in as ${username ? username : 'guest'}`}</Alert>
+            {/* <Alert>{`Signed in as ${username ? username : 'guest'}`}</Alert> */}
 
-            <>
-                { requestedBattle && requestedBattle.challenger ? 
-                <Alert variant='success'>{`${requestedBattle.challenger} challenges ${requestedBattle.opponent} to battle!`}</Alert> :
-                <Alert variant='warning'>No battle requested</Alert>}
-            </>
+            {
+                !battle ?
+                <>
+                    {
+                        requestedBattle && requestedBattle.challenger ? 
+                        <Alert variant='success'>{`${requestedBattle.challenger} challenges ${requestedBattle.opponent} to battle!`}</Alert>
+                        :
+                        <Alert variant='warning'>No battle requested</Alert>
+                    }
+                </>
+                :
+                <></>
+            }
         
         {
             requestedBattle && requestedBattle.challenger ?
@@ -274,7 +281,7 @@ function Battle() {
             :
             username ? 
             <Link className="nav-link" to={'/usersearch'} style={{ display: 'inline-block' }}>
-                <button>Find a user to battle!</button>
+                <Button>Find a user to battle!</Button>
             </Link>
             :
             <Link className="nav-link" to={'/'} style={{ display: 'inline-block' }}>

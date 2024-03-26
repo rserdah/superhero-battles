@@ -1,8 +1,19 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { Badge, Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function NavBar(props: any) {
+    const randColor = () => {
+        const colors = ['aqua', 'blue', 'blueviolet', 'brown', 'chartreuse', 'crimson', 'darkblue', 'darkgoldenrod', 'darkgreen', 'darkmagenta', 'darkorange', 'darkorchid', 'darkred', 'darksalmon', 'darkseagreen', 'darkslateblue', 'darkviolet', 'forestgreen', 'gold', 'goldenrod', 'green', 'greenyellow', 'indigo', 'hotpink', 'lawngreen', 'lightgreen', 'lightseagreen', 'lime', 'limegreen', 'maroon', 'red', 'springgreen', 'yellow', 'tomato'];
+
+        const x = Math.floor(Math.random() * (colors.length - 1));
+
+        return colors[x] || 'red';
+    }
+
+    let dispatcher = useDispatch();
+    const username = useSelector((state: any) => state.token.username);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light ">
@@ -25,6 +36,9 @@ function NavBar(props: any) {
                         })}
                     </ul>
                 </div>
+                <Col align='right'>
+                    <h3><Badge bg='invalid bg value forces it to use backgroundColor' style={{backgroundColor: randColor()}}>{ username ? username : 'Guest' }</Badge></h3>
+                </Col>
             </div>
         </nav>
     );
